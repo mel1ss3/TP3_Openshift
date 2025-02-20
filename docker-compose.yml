@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=sqlite:///app.db  # Si tu veux PostgreSQL, change la ligne
+    restart: always
+
+  db:
+    image: postgres:latest  # Change si tu veux SQLite (inutile dans Docker)
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: annuaire
+    ports:
+      - "5432:5432"
+    restart: always
